@@ -9,7 +9,7 @@ $INSTALL_BASE = <<SCRIPT
   apt-get -y install git python-dev python-setuptools flex bison traceroute libbz2-dev libssl-dev
   apt-get -y install mininet expect
   apt-get -y install xauth
-  apt-get -y install zeroc-ice-all-dev libboost-all-dev
+  apt-get -y install libzeroc-ice35-dev libboost-all-dev
 
   easy_install pip
 
@@ -27,7 +27,7 @@ $INSTALL_BASE = <<SCRIPT
 SCRIPT
 
 Vagrant.configure(2) do |config|
-  config.vm.box = "bento/ubuntu-20.04"
+  config.vm.box = "bento/ubuntu-16.04"
 
   config.vm.provider "virtualbox" do |vb|
   #   # Display the VirtualBox GUI when booting the machine
