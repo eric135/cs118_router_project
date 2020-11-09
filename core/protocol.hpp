@@ -120,6 +120,7 @@ struct ethernet_hdr
   uint16_t ether_type;                  /* packet type ID */
 } __attribute__ ((packed)) ;
 
+static const uint8_t BroadcastEtherAddr[ETHER_ADDR_LEN] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
 
 enum ip_protocol {
   ip_protocol_icmp = 0x0001,

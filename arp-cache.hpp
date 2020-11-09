@@ -14,49 +14,6 @@
  * If not, see <http://www.gnu.org/licenses/>.
  */
 
-/*
-  This file defines an ARP cache with ARP request queue and ARP cache entries
-  The ARP cache entries hold IP->MAC mappings and are timed out every SR_ARPCACHE_TO seconds.
-
-   --
-
-   The handle_arpreq() function is a function you should write, and it should
-   handle sending ARP requests if necessary:
-
-   function handle_arpreq(req):
-       if now - req->timeSent > seconds(1)
-           if req->nTimesSent >= 5:
-               cache.removeRequest(req)
-           else:
-               send arp request
-               req->timeSent = now
-               req->nTimesSent++
-
-   --
-
-   The ARP reply processing code should move entries from the ARP request
-   queue to the ARP cache:
-
-   # When servicing an arp reply that gives us an IP->MAC mapping
-   req = cache.insertArpEntry(ip, mac)
-
-   if req != nullptr:
-       send all packets on the req->packets linked list
-       cache.removeRequest(req)
-
-   --
-
-   To meet the guidelines in the assignment (ARP requests are sent every second
-   until we send 5 ARP requests, then remove the corresponding arp request), 
-   you must fill out the following
-   function that is called every second and is defined in sr_arpcache.c:
-
-   void
-   ArpCache::periodicCheckArpRequestsAndCacheEntries() {
-       for each request on m_arpRequests:
-           handle_arpreq(request)
-   }
-*/
 
 #ifndef SIMPLE_ROUTER_ARP_CACHE_HPP
 #define SIMPLE_ROUTER_ARP_CACHE_HPP

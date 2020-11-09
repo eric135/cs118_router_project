@@ -42,7 +42,7 @@ def set_default_route(host):
         routerip = IP_SETTING['sw0-eth2']
     elif(host.name == 'client'):
         routerip = IP_SETTING['sw0-eth3']
-    print host.name, routerip
+    print(host.name, routerip)
     host.cmd('route add %s/32 dev %s-eth0' % (routerip, host.name))
     host.cmd('route add default gw %s dev %s-eth0' % (routerip, host.name))
     ips = IP_SETTING[host.name].split(".")
@@ -51,12 +51,12 @@ def set_default_route(host):
 def set_default_route_client(host):
     info('*** setting default gateway of client %s\n' % host.name)
     routerip = IP_SETTING['sw0-eth3']
-    print host.name, routerip
+    print(host.name, routerip)
     for eth in ['sw0-eth1', 'sw0-eth2', 'sw0-eth3']:
         swip = IP_SETTING[eth]
         pref = ".".join(swip.split(".")[:-1]) + ".0"
-        print pref
-        check_call('route add -net %s/24 gw 10.0.1.1 dev client-eth0' % (pref), shell = True)
+        print(pref)
+        check_call('route add -net %s/24 gw 172.32.10.1 dev client-eth0' % (pref), shell = True)
 
 def get_ip_setting():
     try:
@@ -65,7 +65,7 @@ def get_ip_setting():
                 if( len(line.split()) == 0):
                   break
                 name, ip = line.split()
-                print name, ip
+                print(name, ip)
                 IP_SETTING[name] = ip
             info( '*** Successfully loaded ip settings for hosts\n %s\n' % IP_SETTING)
     except EnvironmentError:
