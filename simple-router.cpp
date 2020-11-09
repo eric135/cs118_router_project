@@ -25,8 +25,12 @@ namespace simple_router {
 //////////////////////////////////////////////////////////////////////////
 // IMPLEMENT THIS METHOD
 void
-SimpleRouter::handlePacket(const Buffer& packet, const std::string& inIface)
+SimpleRouter::handlePacket(const Buffer& packet, const std::string& inIface, int nat_flag)
 {
+  if (nat_flag == 1) {
+    std::cerr << "Handle NAT packet" << std::endl;
+    // HANDLE NAT PACKET
+  }
   std::cerr << "Got packet of size " << packet.size() << " on interface " << inIface << std::endl;
 
   const Interface* iface = findIfaceByName(inIface);

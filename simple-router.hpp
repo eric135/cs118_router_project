@@ -41,7 +41,7 @@ public:
    * complete with ethernet headers.
    */
   void
-  handlePacket(const Buffer& packet, const std::string& inIface);
+  handlePacket(const Buffer& packet, const std::string& inIface, int nat_flag);
 
   /**
    * USE THIS METHOD TO SEND PACKETS

@@ -19,11 +19,11 @@ from subprocess import Popen, STDOUT, PIPE, check_call
 
 IPBASE = '10.3.0.0/16'
 ROOTIP = '10.3.0.100/16'
-IPCONFIG_FILE = './IP_CONFIG'
+IPCONFIG_FILE = './IP_CONFIG_NAT'
 IP_SETTING={}
 
 class TwoServerClientAndRouterTopology(Topo):
-    "Topology with 2 servers and 1 client connected with a switch/router"
+    "Topology with 2 servers, 1 client, and 1 NAT box connected with a switch/router"
 
     def __init__( self, *args, **kwargs ):
         Topo.__init__( self, *args, **kwargs )
@@ -33,6 +33,7 @@ class TwoServerClientAndRouterTopology(Topo):
         client = self.addHost('client', inNamespace=False)
         for h in server1, server2, client:
             self.addLink( h, router )
+        self.addLink( client, router )
 
 def set_default_route(host):
     info('*** setting default gateway of host %s\n' % host.name)
@@ -52,11 +53,16 @@ def set_default_route_client(host):
     info('*** setting default gateway of client %s\n' % host.name)
     routerip = IP_SETTING['sw0-eth3']
     print(host.name, routerip)
-    for eth in ['sw0-eth1', 'sw0-eth2', 'sw0-eth3']:
-        swip = IP_SETTING[eth]
-        pref = ".".join(swip.split(".")[:-1]) + ".0"
-        print(pref)
-        check_call('route add -net %s/24 gw 172.32.10.1 dev client-eth0' % (pref), shell = True)
+    host.cmd('route add %s/32 dev %s-eth0' % (routerip, host.name))
+    host.cmd('route add default gw %s dev %s-eth0' % (routerip, host.name))
+    ips = IP_SETTING[host.name].split(".")
+    host.cmd('route del -net %s.0.0.0/8 dev %s-eth0' % (ips[0], host.name))
+    
+    #for eth in ['sw0-eth1', 'sw0-eth2', 'sw0-eth3', 'sw0-eth4']:
+        #swip = IP_SETTING[eth]
+        #pref = ".".join(swip.split(".")[:-1]) + ".0"
+        #print(pref)
+        #check_call('route add -net %s/24 gw 10.0.1.100 dev client-eth0' % (pref), shell = True)
 
 def get_ip_setting():
     try:

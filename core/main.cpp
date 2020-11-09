@@ -21,6 +21,8 @@
 
 namespace simple_router {
 
+static int nat_flag = 0;
+
 class PacketHandler : public pox::PacketHandler
 {
 public:
@@ -32,7 +34,7 @@ public:
   void
   handlePacket(const pox::Buffer& packet, const std::string& inIface, const ::Ice::Current&) override
   {
-    m_router.handlePacket(packet, inIface);
+    m_router.handlePacket(packet, inIface, nat_flag);
   }
 
   void
@@ -79,7 +81,13 @@ public:
   int
   run(int, char*[]) override
   {
-    auto rtFile = communicator()->getProperties()->getPropertyWithDefault("RoutingTable", "RTABLE");
+    std::string rtable_fn = "RTABLE";
+    std::string ipconfig_fn = "IP_CONFIG";
+    if (nat_flag == 1) {
+      rtable_fn = "RTABLE_NAT";
+      ipconfig_fn = "IP_CONFIG_NAT";
+    }
+    auto rtFile = communicator()->getProperties()->getPropertyWithDefault("RoutingTable", rtable_fn);
     if (!m_router.loadRoutingTable(rtFile)) {
       std::cerr << "ERROR: Cannot load routing table from `" << rtFile << "`" << std::endl;
       return EXIT_FAILURE;
@@ -94,7 +102,7 @@ public:
       return EXIT_FAILURE;
     }
 
-    auto ifFile = communicator()->getProperties()->getPropertyWithDefault("Ifconfig", "IP_CONFIG");
+    auto ifFile = communicator()->getProperties()->getPropertyWithDefault("Ifconfig", ipconfig_fn);
     m_router.loadIfconfig(ifFile);
 
     Ice::ObjectAdapterPtr adapter = communicator()->createObjectAdapter("");
@@ -146,6 +154,15 @@ int main(int argc, char** argv)
   Ice::registerIceSSL();
 #endif
 
-  simple_router::Router router;
-  return router.main(argc, argv, "router.config");
+  if (argc < 2) {
+    simple_router::Router router;
+    return router.main(argc, argv, "router.config");
+  }
+  else if (argc == 2) {
+    if (strcmp(argv[1], "-n") == 0) {    
+      simple_router::nat_flag = 1;
+      simple_router::Router router;
+      return router.main(argc, argv, "router_nat.config");
+    }
+  }
 }
