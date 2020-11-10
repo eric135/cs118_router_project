@@ -177,6 +177,8 @@ void print_hdr_icmp(const uint8_t* buf) {
   fprintf(stderr, "\tcode: %d\n", hdr->icmp_code);
   /* Keep checksum in NBO */
   fprintf(stderr, "\tchecksum: %d\n", hdr->icmp_sum);
+  fprintf(stderr, "\tidentifier: %d\n", hdr->icmp_id);
+  fprintf(stderr, "\tsequence number: %d\n", hdr->icmp_seq);
 }
 
 
