@@ -6,7 +6,7 @@ SLICE_INCLUDES=-I/usr/share/Ice/slice
 
 USERID=123456789
 
-CLASSES=build/pox.o arp-cache.o routing-table.o simple-router.o core/utils.o core/interface.o core/dumper.o
+CLASSES=build/pox.o arp-cache.o routing-table.o simple-router.o core/utils.o core/interface.o core/dumper.o nat.o
 
 all: router
 

@@ -50,6 +50,7 @@ SimpleRouter::handlePacket(const Buffer& packet, const std::string& inIface, int
 // You should not need to touch the rest of this code.
 SimpleRouter::SimpleRouter()
   : m_arp(*this)
+  , m_natTable(*this)
 {
 }
 

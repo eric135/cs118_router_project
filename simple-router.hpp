@@ -18,6 +18,7 @@
 #define SIMPLE_ROUTER_SIMPLE_ROUTER_HPP
 
 #include "arp-cache.hpp"
+#include "nat.hpp"
 #include "routing-table.hpp"
 #include "core/protocol.hpp"
 #include "core/interface.hpp"
@@ -107,6 +108,7 @@ public:
 
 private:
   ArpCache m_arp;
+  NatTable m_natTable;
   RoutingTable m_routingTable;
   std::set<Interface> m_ifaces;
   std::map<std::string, uint32_t> m_ifNameToIpMap;
