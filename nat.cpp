@@ -89,10 +89,10 @@ operator<<(std::ostream& os, const NatTable& table)
   auto now = steady_clock::now();
 
   for (auto const& entryIt : table.m_natTable) {
-    os << entryIt.first << "   "
-       << ipToString(entryIt.second->internal_ip) << "   "
-       << ipToString(entryIt.second->external_ip) << "   "
-       << std::chrono::duration_cast<seconds>((now - entryIt.second->timeUsed)).count() << " seconds   "
+    os << entryIt.first << "            "
+       << ipToString(entryIt.second->internal_ip) << "         "
+       << ipToString(entryIt.second->external_ip) << "         "
+       << std::chrono::duration_cast<seconds>((now - entryIt.second->timeUsed)).count() << " seconds         "
        << entryIt.second->isValid
        << "\n";
   }

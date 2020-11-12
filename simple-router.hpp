@@ -77,6 +77,12 @@ public:
   getArp() const;
 
   /**
+   * Get NAT table
+   */
+  const NatTable&
+  getNatTable() const;
+
+  /**
    * Print router interfaces
    */
   void
@@ -127,6 +133,12 @@ inline const ArpCache&
 SimpleRouter::getArp() const
 {
   return m_arp;
+}
+
+inline const NatTable&
+SimpleRouter::getNatTable() const
+{
+  return m_natTable;
 }
 
 } // namespace simple_router

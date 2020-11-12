@@ -67,5 +67,7 @@ module pox {
     string getArp();
 
     string getRoutingTable();
+    
+    string getNatTable();
   };
 };

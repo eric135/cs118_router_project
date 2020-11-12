@@ -71,6 +71,14 @@ public:
     return os.str();
   }
 
+  std::string
+  getNatTable(const ::Ice::Current&) override
+  {
+    std::ostringstream os;
+    os << m_router.getNatTable();
+    return os.str();
+  }
+
 private:
   SimpleRouter& m_router;
 };
