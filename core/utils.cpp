@@ -1,5 +1,6 @@
 /* -*- Mode:C++; c-file-style:"gnu"; indent-tabs-mode:nil; -*- */
 /*
+ * Copyright (C) 2020 Eric Newberry <enewberry@cs.ucla.edu>.
  * Copyright (c) 2017 Alexander Afanasyev
  * Copyright (c) 2009 Roger Liao <rogliao@cs.stanford.edu>
  * All rights reserved.
@@ -75,6 +76,22 @@ macToString(const Buffer& macAddr)
   snprintf(s, sizeof(s), "%02x%c%02x%c%02x%c%02x%c%02x%c%02x",
            macAddr.at(0), sep, macAddr.at(1), sep, macAddr.at(2), sep,
            macAddr.at(3), sep, macAddr.at(4), sep, macAddr.at(5));
+
+  return std::string(s);
+}
+
+std::string
+macToString(const uint8_t* macAddr)
+{
+  char s[18]; // 12 digits + 5 separators + null terminator
+  char sep = ':';
+
+  // - apparently gcc-4.6 does not support the 'hh' type modifier
+  // - std::snprintf not found in some environments
+  //   https://redmine.named-data.net/issues/2299 for more information
+  snprintf(s, sizeof(s), "%02x%c%02x%c%02x%c%02x%c%02x%c%02x",
+           macAddr[0], sep, macAddr[1], sep, macAddr[2], sep,
+           macAddr[3], sep, macAddr[4], sep, macAddr[5]);
 
   return std::string(s);
 }

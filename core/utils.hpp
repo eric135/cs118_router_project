@@ -1,5 +1,6 @@
 /* -*- Mode:C++; c-file-style:"gnu"; indent-tabs-mode:nil; -*- */
 /*
+ * Copyright (C) 2020 Eric Newberry <enewberry@cs.ucla.edu>.
  * Copyright (c) 2017 Alexander Afanasyev
  * Copyright (c) 2009 Roger Liao <rogliao@cs.stanford.edu>
  * All rights reserved.
@@ -43,6 +44,12 @@ uint8_t ip_protocol(const uint8_t* buf);
  */
 std::string
 macToString(const Buffer& macAddr);
+
+/**
+ * Get formatted Ethernet address, e.g. 00:11:22:33:44:55
+ */
+std::string
+macToString(const uint8_t* macAddr);
 
 std::string
 ipToString(uint32_t ip);
