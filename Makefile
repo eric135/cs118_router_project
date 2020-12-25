@@ -1,8 +1,8 @@
 CXX=g++
 CXXOPTIMIZE= -O2
 CXXFLAGS= -g -Wall -pthread -std=c++11 -I. -Ibuild/ $(CXXOPTIMIZE)
-LDFLAGS=-lIce -lIceUtil -lboost_system -pthread
-SLICE_INCLUDES=-I/usr/share/Ice/slice
+LDFLAGS=-lIce -lboost_system -pthread
+SLICE_INCLUDES=-I/usr/share/ice/slice
 
 USERID=123456789
 

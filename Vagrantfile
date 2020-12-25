@@ -6,12 +6,14 @@ $INSTALL_BASE = <<SCRIPT
   apt-get update
   apt-get -y upgrade
   apt-get -y install build-essential vim-nox emacs
-  apt-get -y install git python-dev python-setuptools flex bison traceroute libbz2-dev libssl-dev
+  apt-get -y install git python-dev flex bison traceroute libbz2-dev libssl-dev
   apt-get -y install mininet expect
   apt-get -y install xauth
-  apt-get -y install libzeroc-ice35-dev libboost-all-dev
+  apt-get -y install libzeroc-ice-dev libboost-all-dev
 
-  easy_install pip
+  curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+  python get-pip.py
+  rm get-pip.py
 
   rm -Rf /opt/pox
   mkdir -p /opt/pox
@@ -27,7 +29,7 @@ $INSTALL_BASE = <<SCRIPT
 SCRIPT
 
 Vagrant.configure(2) do |config|
-  config.vm.box = "bento/ubuntu-16.04"
+  config.vm.box = "bento/ubuntu-20.04"
 
   config.vm.provider "virtualbox" do |vb|
   #   # Display the VirtualBox GUI when booting the machine
