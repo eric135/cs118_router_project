@@ -39,7 +39,7 @@
 #include <arpa/inet.h>
 #include <string.h>
 
-#include <boost/detail/endian.hpp>
+#include <boost/predef/other/endian.h>
 
 #ifdef _LINUX_
 #include <stdint.h>
@@ -82,10 +82,10 @@ struct icmp_t3_hdr {
  */
 struct ip_hdr
 {
-#if defined(BOOST_LITTLE_ENDIAN)
+#if defined(BOOST_ENDIAN_LITTLE_BYTE)
   unsigned int ip_hl:4;            /* header length */
   unsigned int ip_v:4;             /* version */
-#elif defined(BOOST_BIG_ENDIAN)
+#elif defined(BOOST_ENDIAN_BIG_BYTE)
   unsigned int ip_v:4;             /* version */
   unsigned int ip_hl:4;            /* header length */
 #else

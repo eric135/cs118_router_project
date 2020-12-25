@@ -141,7 +141,7 @@ public:
       });
 
     auto testAdapter = communicator()->createObjectAdapterWithEndpoints("Tester", "tcp -p 65500");
-    testAdapter->add(pox::TesterPtr(new Tester(m_router)), communicator()->stringToIdentity("Tester"));
+    testAdapter->add(pox::TesterPtr(new Tester(m_router)), Ice::stringToIdentity("Tester"));
     testAdapter->activate();
 
     communicator()->waitForShutdown();
@@ -167,7 +167,7 @@ int main(int argc, char** argv)
     return router.main(argc, argv, "router.config");
   }
   else if (argc == 2) {
-    if (strcmp(argv[1], "-n") == 0) {    
+    if (strcmp(argv[1], "-n") == 0) {
       simple_router::nat_flag = 1;
       simple_router::Router router;
       return router.main(argc, argv, "router_nat.config");
