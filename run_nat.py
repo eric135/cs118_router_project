@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 """
 Start up a Simple topology for CS118
@@ -57,7 +57,7 @@ def set_default_route_client(host):
     host.cmd('route add default gw %s dev %s-eth0' % (routerip, host.name))
     ips = IP_SETTING[host.name].split(".")
     host.cmd('route del -net %s.0.0.0/8 dev %s-eth0' % (ips[0], host.name))
-    
+
     #for eth in ['sw0-eth1', 'sw0-eth2', 'sw0-eth3', 'sw0-eth4']:
         #swip = IP_SETTING[eth]
         #pref = ".".join(swip.split(".")[:-1]) + ".0"
