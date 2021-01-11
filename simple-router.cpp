@@ -25,7 +25,7 @@ namespace simple_router {
 //////////////////////////////////////////////////////////////////////////
 // IMPLEMENT THIS METHOD
 void
-SimpleRouter::handlePacket(const Buffer& packet, const std::string& inIface, int nat_flag)
+SimpleRouter::handlePacket(const Buffer& packet, const std::string& inIface)
 {
   std::cerr << "Got packet of size " << packet.size() << " on interface " << inIface << std::endl;
 
@@ -38,7 +38,6 @@ SimpleRouter::handlePacket(const Buffer& packet, const std::string& inIface, int
   std::cerr << getRoutingTable() << std::endl;
 
   // FILL THIS IN
-
 }
 //////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////
@@ -46,7 +45,6 @@ SimpleRouter::handlePacket(const Buffer& packet, const std::string& inIface, int
 // You should not need to touch the rest of this code.
 SimpleRouter::SimpleRouter()
   : m_arp(*this)
-  , m_natTable(*this)
 {
 }
 

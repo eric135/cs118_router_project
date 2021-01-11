@@ -18,7 +18,6 @@
 #define SIMPLE_ROUTER_SIMPLE_ROUTER_HPP
 
 #include "arp-cache.hpp"
-#include "nat.hpp"
 #include "routing-table.hpp"
 #include "core/protocol.hpp"
 #include "core/interface.hpp"
@@ -42,7 +41,7 @@ public:
    * complete with ethernet headers.
    */
   void
-  handlePacket(const Buffer& packet, const std::string& inIface, int nat_flag);
+  handlePacket(const Buffer& packet, const std::string& inIface);
 
   /**
    * USE THIS METHOD TO SEND PACKETS
@@ -73,14 +72,8 @@ public:
   /**
    * Get ARP table
    */
-  const ArpCache&
-  getArp() const;
-
-  /**
-   * Get NAT table
-   */
-  const NatTable&
-  getNatTable() const;
+  ArpCache&
+  getArp();
 
   /**
    * Print router interfaces
@@ -114,7 +107,6 @@ public:
 
 private:
   ArpCache m_arp;
-  NatTable m_natTable;
   RoutingTable m_routingTable;
   std::set<Interface> m_ifaces;
   std::map<std::string, uint32_t> m_ifNameToIpMap;
@@ -129,16 +121,10 @@ SimpleRouter::getRoutingTable() const
   return m_routingTable;
 }
 
-inline const ArpCache&
-SimpleRouter::getArp() const
+inline ArpCache&
+SimpleRouter::getArp()
 {
   return m_arp;
-}
-
-inline const NatTable&
-SimpleRouter::getNatTable() const
-{
-  return m_natTable;
 }
 
 } // namespace simple_router

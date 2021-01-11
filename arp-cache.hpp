@@ -135,6 +135,12 @@ public:
   insertArpEntry(const Buffer& mac, uint32_t ip);
 
   /**
+   * Entry point for incoming ARP packets.
+   */
+  void
+  handleIncomingArp(const Buffer& packet, const std::string& inIface);
+
+  /**
    * Prints out the ARP table.
    */
   void

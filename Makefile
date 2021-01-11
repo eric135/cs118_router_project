@@ -1,12 +1,12 @@
 CXX=g++
 CXXOPTIMIZE= -O2
 CXXFLAGS= -g -Wall -pthread -std=c++11 -I. -Ibuild/ $(CXXOPTIMIZE)
-LDFLAGS=-lIce -lboost_system -pthread
+LDFLAGS=-L. -lIce -lboost_system -larpcache -pthread
 SLICE_INCLUDES=-I/usr/share/ice/slice
 
 USERID=123456789
 
-CLASSES=build/pox.o arp-cache.o routing-table.o simple-router.o core/utils.o core/interface.o core/dumper.o nat.o
+CLASSES=build/pox.o routing-table.o simple-router.o core/utils.o core/interface.o core/dumper.o
 
 all: router
 
