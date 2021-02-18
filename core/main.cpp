@@ -33,7 +33,7 @@ public:
   handlePacket(const pox::Buffer& packet, const std::string& inIface, const ::Ice::Current&) override
   {
     const ethernet_hdr* ethHdr = (ethernet_hdr*)packet.data();
-    if (ethHdr->ether_type == ethertype_arp) {
+    if (ethHdr->ether_type == ntohs(ethertype_arp)) {
       m_router.getArp().handleIncomingArp(packet, inIface);
     }
 
