@@ -33,11 +33,13 @@ public:
   handlePacket(const pox::Buffer& packet, const std::string& inIface, const ::Ice::Current&) override
   {
     const ethernet_hdr* ethHdr = (ethernet_hdr*)packet.data();
-    if (ethHdr->ether_type == ntohs(ethertype_arp)) {
+    if (ntohs(ethHdr->ether_type) == ethertype_arp) {
       m_router.getArp().handleIncomingArp(packet, inIface);
     }
-
-    m_router.handlePacket(packet, inIface);
+    else {
+      // We don't want ARP packets to be passed to student code
+      m_router.handlePacket(packet, inIface);
+    }
   }
 
   void
